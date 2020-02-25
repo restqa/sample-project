@@ -1,0 +1,64 @@
+# DEPLOYMENT
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-gateway
+  name: api-gateway
+  namespace: sample-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+      name: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: restqa/
+          imagePullPolicy: Always
+          env:
+            - configMapRef:
+                name: api-gateway
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          - containerPort: 8001
+            protocol: TCP
+          - containerPort: 443
+            protocol: TCP            
+          - containerPort: 8444
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 1Gi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+# SERVICE
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: api-gateway
+  namespace: sample-project
+  name: api-gateway
+spec:
+  type: ClusterIP
+  selector:
+    app: api-gateway
+  ports:
+    - port: 80
+      targetPort: 8000
+      protocol: TCP
