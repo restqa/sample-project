@@ -9,6 +9,5 @@ ENV KONG_DECLARATIVE_CONFIG=/kong.yml
 
 RUN kong config -v parse /kong.yml
 
-
 USER kong
 

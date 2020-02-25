@@ -9,12 +9,14 @@ jobs:
       matrix:
         component:
           - 1-api-gateway
+          - 2-microservice-users
+          - 3-microservice-addresses
     steps:
     - uses: actions/checkout@v2
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.12
       with:
-        name: restqa/sample-project_1-${{ matrix.component }}
+        name: restqa/sample-project_${{ matrix.component }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         auto_tag: true
