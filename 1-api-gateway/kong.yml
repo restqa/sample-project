@@ -21,7 +21,7 @@ services:
     - PUT
     - PATCH
     - DELETE
-    strip_path: true
+    strip_path: false
     preserve_host: true
 
 - name: addresses
@@ -41,7 +41,7 @@ services:
     - PUT
     - PATCH
     - DELETE
-    strip_path: true
+    strip_path: false
     preserve_host: true
 
 
@@ -52,4 +52,3 @@ plugins:
     header_name: x-correlation-id
     generator: tracker
     echo_downstream: false
-
