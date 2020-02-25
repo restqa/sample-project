@@ -10,7 +10,7 @@ jobs:
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.12
       with:
-        name: restqa/sample-project/api-gateway
+        name: restqa/sample-project_1-api-gateway
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         auto_tag: true
