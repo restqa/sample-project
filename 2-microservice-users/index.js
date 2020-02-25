@@ -38,7 +38,6 @@ express()
   })
   .put('/users/:id', (req, res, next) => {
     let { body } = req
-    body = Object.assign(req.user, body)
 
     if (!body.firstname) return next({code: 406, msg: 'firstname is mandatory'})
     if (!body.lastname) return next({code: 406, msg: 'lastname is mandatory'})
@@ -51,6 +50,6 @@ express()
     res.sendStatus(204)
   })
   .use((err, req, res, next) => {
-    res.json(err)
+    res.status(err.code).json(err)
   })
   .listen(PORT, () => console.log('start server on ' + PORT))
