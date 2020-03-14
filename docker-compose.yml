@@ -1,0 +1,19 @@
+version: '3'
+services:
+  api-gateway:
+    build: ./1-api-gateway
+    ports:
+    - "8000:8000"
+    links:
+    - "users:users.sample-project.svc.cluster.local"
+    - "addresses:addresses.sample-project.svc.cluster.local"
+  users:
+    build: ./2-microservice-users
+  addresses:
+    build: ./3-microservice-addresses
+    links:
+    - "users:users.sample-project.svc.cluster.local"
+    environment:
+      - URL_USER_SVC=http://users.sample-project.svc.cluster.local:8080
+
+
