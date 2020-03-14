@@ -20,11 +20,8 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: restqa/
+          image: restqa/sample-project_1-api-gateway
           imagePullPolicy: Always
-          env:
-            - configMapRef:
-                name: api-gateway
           ports:
           - containerPort: 8000
             protocol: TCP
@@ -55,7 +52,8 @@ metadata:
   namespace: sample-project
   name: api-gateway
 spec:
-  type: ClusterIP
+  #type: ClusterIP
+  type: LoadBalancer
   selector:
     app: api-gateway
   ports:

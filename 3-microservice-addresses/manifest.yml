@@ -1,0 +1,62 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: addresses
+  name: addresses
+  namespace: sample-project
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: addresses
+  template:
+    metadata:
+      labels:
+        app: addresses
+      name: addresses
+    spec:
+      containers:
+      - name: addresses
+        imagePullPolicy: Always
+        image: restqa/sample-project_3-microservice-addresses
+        env:
+          - name: PORT
+            value: "8080"
+          - name: URL_USER_SVC
+            value: "http://users.sample-project.svc.cluster.local:8080"
+          - name: HTTP_PROXY
+            value: "http://moxy-restqa.restqa.svc.cluster.local:8080"
+          - name: HTTPS_PROXY
+            value: "http://moxy-restqa.restqa.svc.cluster.local:8080"
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+             cpu: 100m
+             memory: 256Mi
+          requests:
+             cpu: 100m
+             memory: 100Mi
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: addresses
+  name: addresses
+  namespace: sample-project
+spec:
+  selector:
+    app: addresses
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
