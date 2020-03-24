@@ -1,0 +1,54 @@
+_format_version: "1.1"
+
+# Each Kong entity (core entity or custom entity introduced by a plugin)
+# can be listed in the top-level as an array of objects:
+
+services:
+- name: users
+  host: users.dfb3fe29-4f7f-49dd-8d0b-adb7686e4b84
+  protocol: http
+  path: /
+  port: 8080
+  routes:
+  - paths:
+    - /users
+    protocols:
+    - http
+    - https
+    methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    strip_path: false
+    preserve_host: true
+
+- name: addresses
+  host: addresses.dfb3fe29-4f7f-49dd-8d0b-adb7686e4b84
+  protocol: http
+  path: /
+  port: 8080
+  routes:
+  - paths:
+    - /users/([^/]+)/addresses
+    protocols:
+    - http
+    - https
+    methods:
+    - GET
+    - POST
+    - PUT
+    - PATCH
+    - DELETE
+    strip_path: false
+    preserve_host: true
+
+
+plugins:
+- name: correlation-id
+  enabled: true
+  config: 
+    header_name: x-correlation-id
+    generator: tracker
+    echo_downstream: false
