@@ -22,7 +22,7 @@ services:
     - PATCH
     - DELETE
     strip_path: false
-    preserve_host: true
+    preserve_host: false
 
 - name: addresses
   host: addresses.dfb3fe29-4f7f-49dd-8d0b-adb7686e4b84
@@ -42,7 +42,7 @@ services:
     - PATCH
     - DELETE
     strip_path: false
-    preserve_host: true
+    preserve_host: false
 
 
 plugins:
