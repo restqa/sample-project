@@ -1,18 +1,7 @@
-FROM kong:2.0
+FROM nginx:alpine
 
-ARG KONG_CONFIG_FILE=${KONG_CONFIG_FILE:-kong.yml}
+ARG NGINX_CONFIG_FILE=${NGINX_CONFIG_FILE:-nginx.conf}
 
-RUN echo $KONG_CONFIG_FILE
+RUN echo $NGINX_CONFIG_FILE
 
-COPY . /opt/app-root
-
-RUN cat /opt/app-root/$KONG_CONFIG_FILE
-
-ENV KONG_DATABASE=off
-ENV KONG_DECLARATIVE_CONFIG=/opt/app-root/$KONG_CONFIG_FILE
-ENV KONG_LOG_LEVEL=info
-
-RUN kong config -v parse /opt/app-root/$KONG_CONFIG_FILE
-
-USER kong
-
+COPY nginx.conf /etc/nginx/$NGINX_CONFIG_FILE
