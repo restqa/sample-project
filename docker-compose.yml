@@ -3,7 +3,7 @@ services:
   api-gateway:
     build: ./1-api-gateway
     ports:
-    - "8000:8000"
+    - "8000:80"
     links:
     - "users:users.sample-project.svc.cluster.local"
     - "addresses:addresses.sample-project.svc.cluster.local"
