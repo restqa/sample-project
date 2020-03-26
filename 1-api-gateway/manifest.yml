@@ -23,13 +23,7 @@ spec:
           image: restqa/sample-project_1-api-gateway
           imagePullPolicy: Always
           ports:
-          - containerPort: 8000
-            protocol: TCP
-          - containerPort: 8001
-            protocol: TCP
-          - containerPort: 443
-            protocol: TCP            
-          - containerPort: 8444
+          - containerPort: 80
             protocol: TCP
           resources:
             limits:
@@ -58,5 +52,5 @@ spec:
     app: api-gateway
   ports:
     - port: 80
-      targetPort: 8000
+      targetPort: 80
       protocol: TCP
