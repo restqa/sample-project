@@ -3,8 +3,7 @@ on: [push]
 name: Sample-deploy
 
 jobs:
-
-  devflow:
+  Build-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -13,6 +12,14 @@ jobs:
           - microservice-users
           - microservice-addresses
     steps:
+    - uses: actions/checkout@v2
+    - uses: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    - name: "Activate Namespace"
+      uses: okteto/actions/namespace@master
+      with:
+        namespace: sample-project-olivierodo
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.12
       with:
@@ -21,13 +28,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         auto_tag: true
         workdir: ${{ matrix.component }}
-    - uses: okteto/actions/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    - name: "Activate Namespace"
-      uses: okteto/actions/namespace@master
-      with:
-        namespace: sample-project-olivierodo
     - name: "Deploy"
       uses: okteto/actions/deploy@master
       with:
