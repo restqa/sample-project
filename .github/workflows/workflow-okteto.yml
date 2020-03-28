@@ -13,13 +13,6 @@ jobs:
           - microservice-users
           - microservice-addresses
     steps:
-    - uses: okteto/actions/login@master
-      with:
-        token: ${{ secrets.OKTETO_TOKEN }}
-    - name: "Activate Namespace"
-      uses: okteto/actions/namespace@master
-      with:
-        namespace: sample-project-olivierodo
     - name: Publish Docker
       uses: elgohr/Publish-Docker-Github-Action@2.12
       with:
@@ -28,10 +21,17 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         auto_tag: true
         workdir: ${{ matrix.component }}
+    - uses: okteto/actions/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+    - name: "Activate Namespace"
+      uses: okteto/actions/namespace@master
+      with:
+        namespace: sample-project-olivierodo
     - name: "Deploy"
       uses: okteto/actions/deploy@master
       with:
         namespace: sample-project-olivierodo
-        manifest: ${{ matrix.component }}/manifest.okteto.yml
+        manifest: ${{ matrix.component }}/manifest.yml
         tag: ${{ matrix.component }}:${{ github.sha }}
         registry: registry.cloud.okteto.net
