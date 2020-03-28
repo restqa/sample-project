@@ -6,7 +6,6 @@ metadata:
   labels:
     app: users
   name: users
-  namespace: sample-project
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -23,7 +22,7 @@ spec:
       containers:
       - name: users
         imagePullPolicy: Always
-        image: restqa/sample-project_2-microservice-users
+        image: restqa/sample-project_microservice-users
         env:
           - name: PORT
             value: "8080"
@@ -46,7 +45,6 @@ metadata:
   labels:
     app: users
   name: users
-  namespace: sample-project
 spec:
   selector:
     app: users

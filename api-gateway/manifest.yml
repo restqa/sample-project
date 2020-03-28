@@ -6,7 +6,6 @@ metadata:
   labels:
     app: api-gateway
   name: api-gateway
-  namespace: sample-project
 spec:
   replicas: 1
   selector:
@@ -20,7 +19,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: restqa/sample-project_1-api-gateway
+          image: restqa/sample-project_api-gateway
           imagePullPolicy: Always
           ports:
           - containerPort: 80
@@ -41,13 +40,12 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
+    dev.okteto.com/auto-ingress: "true"
   labels:
     app: api-gateway
-  namespace: sample-project
   name: api-gateway
 spec:
-  #type: ClusterIP
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: api-gateway
   ports:
