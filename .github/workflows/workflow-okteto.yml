@@ -30,14 +30,14 @@ jobs:
         workdir: project/${{ matrix.component }}
     - name: "Deploy"
       uses: okteto/actions/deploy@master
-      working-directory: project
+      working-directory: ./project
       with:
         namespace: sample-project-olivierodo
         manifest: ${{ matrix.component }}/manifest.yml
         tag: ${{ matrix.component }}:${{ github.sha }}
         registry: registry.cloud.okteto.net
   E2E:
-    need: Build-deploy
+    needs: Build-deploy
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
