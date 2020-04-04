@@ -29,11 +29,10 @@ jobs:
         auto_tag: true
         workdir: project/${{ matrix.component }}
     - name: "Deploy"
-      working-directory: ./project
       uses: okteto/actions/deploy@master
       with:
         namespace: sample-project-olivierodo
-        manifest: ${{ matrix.component }}/manifest.yml
+        manifest: ./project/${{ matrix.component }}/manifest.yml
         tag: ${{ matrix.component }}:${{ github.sha }}
         registry: registry.cloud.okteto.net
   E2E:
