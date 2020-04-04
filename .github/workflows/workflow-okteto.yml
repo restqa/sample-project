@@ -37,11 +37,13 @@ jobs:
         registry: registry.cloud.okteto.net
   E2E:
     needs: Build-deploy
-    working-directory: ./tests
+    
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run E2E Test Automation on the Environment ${{ matrix.test-env }}
       uses: docker://restqa/restqapi
+      with:
+        arg: restqapi run $GITHUB_WORKSPACE
       env:
         RESTQA_ENV: okteto
