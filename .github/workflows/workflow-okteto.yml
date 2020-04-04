@@ -44,6 +44,6 @@ jobs:
     - name: Run E2E Test Automation on the Environment ${{ matrix.test-env }}
       uses: docker://restqa/restqapi
       with:
-        arg: restqapi run $GITHUB_WORKSPACE/tests
+        arg: restqapi --help
       env:
         RESTQA_ENV: okteto
