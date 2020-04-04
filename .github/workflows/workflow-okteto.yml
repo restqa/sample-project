@@ -1,6 +1,6 @@
 on: [push]
 
-name: Sample-deploy
+name: Sample-project-deploy
 
 jobs:
   Build-deploy:
@@ -27,11 +27,22 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         auto_tag: true
-        workdir: ${{ matrix.component }}
+        workdir: project/${{ matrix.component }}
     - name: "Deploy"
       uses: okteto/actions/deploy@master
+      working-directory: project
       with:
         namespace: sample-project-olivierodo
         manifest: ${{ matrix.component }}/manifest.yml
         tag: ${{ matrix.component }}:${{ github.sha }}
         registry: registry.cloud.okteto.net
+  E2E:
+    need: Build-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run E2E Test Automation on the Environment ${{ matrix.test-env }}
+      working-directory: ./tests
+      uses: docker://restqa/restqapi
+      env:
+        RESTQA_ENV: okteto

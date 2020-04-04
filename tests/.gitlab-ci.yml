@@ -1,0 +1,9 @@
+stages:
+  - test
+
+restqapi-e2e:
+  stage: tests
+  image:
+    name: 'restqa/restqapi'
+  variables:
+    RESTQA_ENV: 'uat'

@@ -3,8 +3,6 @@ services:
   api-gateway:
     build: 
       context: ./api-gateway
-      args:
-        NGINX_CONFIG_FILE: nginx.kintohub.conf
     ports:
     - "8000:80"
     links:

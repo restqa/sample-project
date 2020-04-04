@@ -1,0 +1,43 @@
+#restqapi config file
+---
+
+code: BUAPI
+name: My Business API
+description: The decription of the business api
+environments:
+  - name: local
+    url: http://host.docker.internal:8000
+    default: true
+    reports:
+      - type: http
+        enabled: false
+        config:
+          path: 'https://httpdump.io/lb8f7'
+      - type: file
+        enabled: true
+        config:
+          path: 'my-report-restqa.json'
+  - name: kintohub
+    url: https://sample-gateway-54fab-dfb3f.web.beta.kintohub.com
+    reports:
+      - type: elastic-search
+        enabled: false
+        config:
+          url: 'http://35.225.201.98:9200 '
+      - type: http
+        enabled: false
+        config:
+          url: 'https://httpdump.io/ulusr'
+          method: 'POST'
+  - name: okteto
+    url: https://api-gateway-sample-project-olivierodo.cloud.okteto.net
+    reports:
+      - type: elastic-search
+        enabled: false
+        config:
+          url: 'http://35.193.26.206:9200'
+      - type: http
+        enabled: false
+        config:
+          url: 'https://httpdump.io/4026o'
+          method: 'POST'
