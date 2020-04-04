@@ -29,8 +29,8 @@ jobs:
         auto_tag: true
         workdir: project/${{ matrix.component }}
     - name: "Deploy"
-      uses: okteto/actions/deploy@master
       working-directory: ./project
+      uses: okteto/actions/deploy@master
       with:
         namespace: sample-project-olivierodo
         manifest: ${{ matrix.component }}/manifest.yml
