@@ -42,7 +42,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run E2E Test Automation on the Environment ${{ matrix.test-env }}
-      uses: docker://restqa/restqapi
+      uses: docker://restqa/restqapi:0.0.2
       with:
         args: restqapi run ./tests
       env:
