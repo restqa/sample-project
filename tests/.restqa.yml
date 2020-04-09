@@ -19,7 +19,7 @@ environments:
           path: 'my-report-restqa.json'
   - name: kintohub
     url: https://sample-gateway-54fab-dfb3f.web.beta.kintohub.com
-    reports:
+    outputs:
       - type: elastic-search
         enabled: false
         config:
@@ -31,7 +31,7 @@ environments:
           method: 'POST'
   - name: okteto
     url: https://api-gateway-sample-project-olivierodo.cloud.okteto.net
-    reports:
+    outputs:
       - type: elastic-search
         enabled: false
         config:
