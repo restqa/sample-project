@@ -3,11 +3,19 @@ const NodeCache = require("node-cache")
 const { v4:uuidv4 } =  require('uuid')
 
 const Cache = new NodeCache()
-let { PORT } = process.env
+let { PORT, API_KEY } = process.env
 PORT = PORT || 8080
+API_KEY = API_KEY || 'default-api-key'
 
 express()
   .use(require('body-parser').json())
+  .use((req, res, next) => {
+    let err
+    if (API_KEY !== req.headers['x-api-key']) {
+      err = {code: 401, msg: `Authentication error`}
+    }
+    next(err)
+  })
   .use('/users/:id', (req, res, next) => {
     let err
     req.user = Cache.get(req.params.id)

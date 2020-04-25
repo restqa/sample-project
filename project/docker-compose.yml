@@ -4,12 +4,14 @@ services:
     build: 
       context: ./api-gateway
     ports:
-    - "8000:80"
+    - "8080:80"
     links:
     - "users:users.sample-project-olivierodo.svc.cluster.local"
     - "addresses:addresses.sample-project-olivierodo.svc.cluster.local"
   users:
     build: ./microservice-users
+    environment:
+      - API_KEY=xxx-yyy-zzz
   addresses:
     build: ./microservice-addresses
     links:

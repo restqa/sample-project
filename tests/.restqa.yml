@@ -1,13 +1,19 @@
 #restqapi config file
 ---
 
-code: BUAPI
-name: My Business API
-description: The decription of the business api
+version: 0.0.1
+metadata:
+  name: My Business API
+  description: The decription of the business api
 environments:
   - name: local
-    url: http://host.docker.internal:8000
     default: true
+    plugins:
+      - name: restqapi
+        config:
+          url: http://host.docker.internal:8080
+          secrets:
+            'api-key': 'xxx-yyy-zzz'
     reports:
       - type: http
         enabled: false
@@ -18,7 +24,12 @@ environments:
         config:
           path: 'my-report-restqa.json'
   - name: kintohub
-    url: https://sample-gateway-54fab-dfb3f.web.beta.kintohub.com
+    plugins:
+      - name: restqapi
+        config:
+          url: https://sample-gateway-54fab-dfb3f.web.beta.kintohub.com
+          secrets:
+            'api-key': 'xxx-yyy-zzz'
     outputs:
       - type: elastic-search
         enabled: false
@@ -30,14 +41,21 @@ environments:
           url: 'https://httpdump.io/ulusr'
           method: 'POST'
   - name: okteto
-    url: https://api-gateway-sample-project-olivierodo.cloud.okteto.net
+    plugins:
+      - name: restqapi
+        config:
+          url: https://api-gateway-sample-project-olivierodo.cloud.okteto.net
+          secrets:
+            'api-key': 'xxx-yyy-zzz'
     outputs:
       - type: elastic-search
         enabled: false
         config:
           url: 'http://35.193.26.206:9200'
+          secrets:
+            'api-key': !env-var API_KEY
       - type: http
-        enabled: false
+        enabled: true
         config:
-          url: 'https://httpdump.io/4026o'
+          url: 'https://httpdump.io/zt6jc'
           method: 'POST'
