@@ -6,10 +6,10 @@ module.exports = Router({ mergeParams: true })
     let err
     req.user = $.cache.get(req.params.id)
     if (!req.user) {
-      let err = new Error(`The user ${req.params.userId} doesn't exist`)
+      err = new Error(`The user ${req.params.id} doesn't exist`)
       err.status = 404
     }
-    next(err)
+    return next(err)
   })
   .post('/', (req, res, next) => {
     let { body } = req
@@ -42,9 +42,19 @@ module.exports = Router({ mergeParams: true })
   })
   .put('/:id', (req, res, next) => {
     let { body } = req
+    body.id = req.params.id
 
-    if (!body.firstname) return next({code: 406, msg: 'firstname is mandatory'})
-    if (!body.lastname) return next({code: 406, msg: 'lastname is mandatory'})
+    if (!body.firstname) {
+      let err = new Error('firstname is mandatory')
+      err.status = 406
+      return next(err)
+    }
+
+    if (!body.lastname) {
+      let err = new Error('lastname is mandatory')
+      err.status = 406
+      return next(err)
+    }
 
     $.cache.set(body.id, body)
     res.json(body)
