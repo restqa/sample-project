@@ -1,0 +1,19 @@
+---
+
+name: End To End API Integration Test
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  RestQa:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: restqa/restqa-action@0.0.1
+      env:
+        API_KEY: ${{secrets.API_KEY}}
+      with:
+        path: 'tests/integrations/'

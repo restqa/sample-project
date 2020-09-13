@@ -1,0 +1,36 @@
+---
+
+version: 0.0.1
+metadata:
+  code: SAMPLE-API
+  name: RestQA Sample API
+  description: Sample api provided by restqa labs in order to test different use cases
+environments:
+  - name: dev
+    default: false
+    plugins:
+      - name: restqapi
+        config:
+          url: http://host.docker.internal:3323
+          secrets:
+            API-KEY: 'd8ba0d75-76f8-47d4-8671-bfa2fbe4f5aa'
+    outputs:
+      - type: file
+        enabled: false
+        config:
+          path: 'restqa.report.json'
+  - name: production
+    default: true
+    plugins:
+      - name: restqapi
+        config:
+          url: https://sample-api.restqa.io
+          secrets:
+            API-KEY: !env-var API_KEY
+    outputs:
+      - type: file
+        enabled: false
+        config:
+          path: 'restqa.report.json'
+      - type: 'http-html-report'
+        enabled: true
