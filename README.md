@@ -1,29 +1,15 @@
 # Sample Project E2e
 
-> Sample project to run API End to End Automation Tests using [RestQapi](https://github.com/restqa/restqapi)
+> Sample project to run API End to End Automation Tests using [RestQA](https://github.com/restqa/restqa)
 
-![RestQapi - End 2 End](https://github.com/restqa/sample-project-e2e/workflows/RestQapi%20-%20End%202%20End/badge.svg)
 
-**Documentation is great but nothing is better to have an functional example**
-
-This project relies on [RestQapi](https://github.com/restqa/restqapi), if you want more detail RestQapi please visit the [project documentation](https://github.com/restqa/restqapi) or https://www.restqa.io/restqapi
-
-In this repository you will find example for :
-  * A config file [.restqa.yml](./restqa.yml) : This file will contain the restqapi configuration that need to be used by the current project
-  * [Feature](./features) files : Based on cucumber the features files are composed of step predefined on the [RestQapi](https://github.com/restqa/restqapi) project
-  * Continuous integration file for :
-    * [Docker](./Dockerfile)
-    * [Github Action](./.github/workflows/main.yml)
-    * [Gitlab CI](./.gitlab-ci.yml)
-
-![run](./docs/assets/example.gif)
 
 ## Installation
 
 The current setup relies on Docker
 
 ```sh
-docker pull restqa/restqapi
+docker pull restqa/restqa
 ```
 
 ## Usage example
@@ -34,7 +20,7 @@ docker pull restqa/restqapi
 To get to know what are the step definitions available on restqapi you can run the command : 
 
 ```sh
-docker run --rm -it  restqa/restqapi restqapi steps then
+docker run --rm -it -v $PWD:/app restqa/restqa restqa steps then
 ```
 
 The output will be :
@@ -77,13 +63,13 @@ You can use the different keywords :
 To run the current test : 
 
 ```
-docker run --rm -v $(pwd):/app/ restqa/restqapi
+docker run --rm -v $(pwd):/app restqa/restqa restqa run 
 ```
 
 If you want to specify an environment just run : 
 
 ```
-docker run --rm -v $(pwd):/app/ -e RESTQA_ENV=uat restqa/restqapi
+docker run --rm -v $(pwd):/app -e RESTQA_ENV=uat restqa/restqa run
 ```
 
 ## FAQ
